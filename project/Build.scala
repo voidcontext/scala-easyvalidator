@@ -3,12 +3,12 @@ package build
 import sbt._
 import Keys._
 
-object BricksetClientBuild extends Build {
+object EasyValidatorBuild extends Build {
   lazy val root = Project(
-    "validator",
+    "easyvalidator",
     file("."),
     settings = Defaults.defaultSettings ++ Seq(
-      name := "validator",
+      name := "easyvalidator",
       organization := "io.github.voidcontext",
       version := "0.1.0",
       scalaVersion := "2.11.6",
