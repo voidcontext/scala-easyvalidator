@@ -20,27 +20,30 @@ package object DSL {
   }
   abstract sealed class Validator()
 
-  trait ComparisonFactory[T] {
-    def comparison(compareTo: T): Comparison[T]
+  trait NumericComparisonFactory {
+    def comparison[T <% Ordered[T]](compareTo: T): Comparison[T]
   }
 
-  object greater extends ComparisonFactory[Int] {
-    def comparison(n: Int) = new Comparison[Int](n) {
-      def compare(n: Int, m: Int) = validate(
+  object greater extends NumericComparisonFactory {
+    def comparison[T <% Ordered[T]](n: T) = new Comparison[T](n) {
+      def compare(n: T, m: T) = validate(
           n > m,
           s"$n is not greater than $m"
         )
     }
   }
 
-  case class IntValidator(value: Int) extends Validator {
-
+  abstract sealed class NumericValidator[T <% Ordered[T]](value: T) extends Validator {
     object is {
-      def apply(factory: ComparisonFactory[Int]) = factory.comparison(value)
+      def apply(factory: NumericComparisonFactory) = factory.comparison[T](value)
     }
   }
 
+  case class IntValidator(value: Int) extends NumericValidator[Int](value: Int)
+  case class FloatValidator(value: Float) extends NumericValidator[Float](value: Float)
+  case class DoubleValidator(value: Double) extends NumericValidator[Double](value: Double)
 
-
-  implicit def intConv(i: Int) = new IntValidator(i)
+  implicit def intConv(i: Int): IntValidator = new IntValidator(i)
+  implicit def floatConv(f: Float): FloatValidator = new FloatValidator(f)
+  implicit def doubleConv(d: Double): DoubleValidator = new DoubleValidator(d)
 }
