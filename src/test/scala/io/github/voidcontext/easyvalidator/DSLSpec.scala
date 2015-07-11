@@ -1,4 +1,4 @@
-package io.github.voidcontext.simplevalidation
+package io.github.voidcontext.easyvalidator
 
 import DSL._
 import org.scalatest._

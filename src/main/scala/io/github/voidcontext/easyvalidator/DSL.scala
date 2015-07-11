@@ -1,6 +1,4 @@
-package io.github.voidcontext.simplevalidation
-
-
+package io.github.voidcontext.easyvalidator
 
 package object DSL {
 
