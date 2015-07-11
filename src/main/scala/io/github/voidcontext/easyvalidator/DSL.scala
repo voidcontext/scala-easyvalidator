@@ -5,36 +5,11 @@ package object DSL {
   import scala.language.implicitConversions
   import scala.util.{Try, Success, Failure}
 
-  abstract sealed class Comparison[T](value: T) {
+  import rule._
+  import validator._
 
-    def compare(n: T, m: T): Try[T]
-
-    def than(m: T) = compare(value, m)
-
-    def validate(result: Boolean, message: String): Try[T] = result match {
-      case true  => Success(value)
-      case false => Failure(new Exception(message))
-    }
-  }
-  abstract sealed class Validator()
-
-  trait NumericComparisonFactory {
-    def comparison[T <% Ordered[T]](compareTo: T): Comparison[T]
-  }
-
-  object greater extends NumericComparisonFactory {
-    def comparison[T <% Ordered[T]](n: T) = new Comparison[T](n) {
-      def compare(n: T, m: T) = validate(
-          n > m,
-          s"$n is not greater than $m"
-        )
-    }
-  }
-
-  abstract sealed class NumericValidator[T <% Ordered[T]](value: T) extends Validator {
-    object is {
-      def apply(factory: NumericComparisonFactory) = factory.comparison[T](value)
-    }
+  object greater extends NumericRuleFactory {
+    def getRule[T <% Ordered[T]](value: T, validator: Validator[T]) = new GreaterThanRule[T](value, validator)
   }
 
   case class IntValidator(value: Int) extends NumericValidator[Int](value: Int)
