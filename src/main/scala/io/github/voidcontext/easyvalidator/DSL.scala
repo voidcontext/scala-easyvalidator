@@ -8,9 +8,9 @@ package object DSL {
   import rule._
   import validator._
 
-  object greater extends NumericRuleFactory {
-    def getRule[T <% Ordered[T]](value: T, validator: Validator[T]) = new GreaterThanRule[T](value, validator)
-  }
+  object not extends Negation
+  object less extends LessThan
+  object greater extends GreaterThan
 
   case class IntValidator(value: Int) extends NumericValidator[Int](value: Int)
   case class FloatValidator(value: Float) extends NumericValidator[Float](value: Float)
