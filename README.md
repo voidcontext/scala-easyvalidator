@@ -1,4 +1,6 @@
-# scala-easyvalidator
+# scala-easyvalidator 
+
+[![Build Status](https://travis-ci.org/voidcontext/scala-easyvalidator.svg?branch=master)](https://travis-ci.org/voidcontext/scala-easyvalidator)
 
 ### License
 
