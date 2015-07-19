@@ -6,73 +6,79 @@ import scala.util.{Try}
 
 class DSLSpec extends FlatSpec with TryValues {
 
-  def testValidNum[T](result: Try[T], num: T) = assert(result.success.value == num)
-  def testInvalidNum[T](result: Try[T], errMsg: String) = assert(
+  def testValidValue[T](result: Try[T], num: T) = assert(result.success.value == num)
+  def testInvalidValue[T](result: Try[T], errMsg: String) = assert(
     result.failure.exception.getMessage == errMsg
   )
 
   val intVal = 10
   val floatVal = 11.3f
   val doubleVal = 11.3
+  val stringVal = "foo bar"
 
   "`greater than` expression" should "validate int values" in {
-    testValidNum[Int]     (intVal is greater than  5, intVal)
-    testInvalidNum[Int]   (intVal is greater than 19, "10 is not greater than 19")
+    testValidValue[Int]     (intVal is greater than  5, intVal)
+    testInvalidValue[Int]   (intVal is greater than 19, "10 is not greater than 19")
   }
 
   it should "validate float values" in {
-    testValidNum[Float]   (floatVal is greater than    5, floatVal)
-    testInvalidNum[Float] (floatVal is greater than 11.5f, "11.3 is not greater than 11.5")
+    testValidValue[Float]   (floatVal is greater than    5, floatVal)
+    testInvalidValue[Float] (floatVal is greater than 11.5f, "11.3 is not greater than 11.5")
   }
 
   it should "validate double values" in {
-    testValidNum[Double]   (doubleVal is greater than    5, doubleVal)
-    testInvalidNum[Double] (doubleVal is greater than 11.5, "11.3 is not greater than 11.5")
+    testValidValue[Double]   (doubleVal is greater than    5, doubleVal)
+    testInvalidValue[Double] (doubleVal is greater than 11.5, "11.3 is not greater than 11.5")
   }
 
   "`less than` expression" should "validate int values" in {
-    testValidNum[Int]     (intVal is less than 11, intVal)
-    testInvalidNum[Int]   (intVal is less than 5, "10 is not less than 5")
+    testValidValue[Int]     (intVal is less than 11, intVal)
+    testInvalidValue[Int]   (intVal is less than 5, "10 is not less than 5")
   }
 
   it should "validate float values" in {
-    testValidNum[Float]   (floatVal is less than 11.300001f, floatVal)
-    testInvalidNum[Float] (floatVal is less than 11.2f, "11.3 is not less than 11.2")
+    testValidValue[Float]   (floatVal is less than 11.300001f, floatVal)
+    testInvalidValue[Float] (floatVal is less than 11.2f, "11.3 is not less than 11.2")
   }
 
   it should "validate double values" in {
-    testValidNum[Double]   (doubleVal is less than 15, doubleVal)
-    testInvalidNum[Double] (doubleVal is less than 3.45, "11.3 is not less than 3.45")
+    testValidValue[Double]   (doubleVal is less than 15, doubleVal)
+    testInvalidValue[Double] (doubleVal is less than 3.45, "11.3 is not less than 3.45")
   }
 
   "`is` expression" should "validate int values" in {
-    testValidNum[Int]     (intVal is 10, intVal)
-    testInvalidNum[Int]   (intVal is 5, "10 is not equal to 5")
+    testValidValue[Int]     (intVal is 10, intVal)
+    testInvalidValue[Int]   (intVal is 5, "10 is not equal to 5")
   }
 
   it should "validate float values" in {
-    testValidNum[Float]   (floatVal is 11.3f, floatVal)
-    testInvalidNum[Float] (floatVal is 11.2f, "11.3 is not equal to 11.2")
+    testValidValue[Float]   (floatVal is 11.3f, floatVal)
+    testInvalidValue[Float] (floatVal is 11.2f, "11.3 is not equal to 11.2")
   }
 
   it should "validate double values" in {
-    testValidNum[Double]   (doubleVal is 11.3, doubleVal)
-    testInvalidNum[Double] (doubleVal is 3.45, "11.3 is not equal to 3.45")
+    testValidValue[Double]   (doubleVal is 11.3, doubleVal)
+    testInvalidValue[Double] (doubleVal is 3.45, "11.3 is not equal to 3.45")
   }
 
   "`is not` expression" should "validate int values" in {
-    testValidNum[Int]     (intVal is not equal 5, intVal)
-    testInvalidNum[Int]   (intVal is not equal 10, "10 is equal to 10")
+    testValidValue[Int]     (intVal is not equal 5, intVal)
+    testInvalidValue[Int]   (intVal is not equal 10, "10 is equal to 10")
   }
 
   it should "validate float values" in {
-    testValidNum[Float]   (floatVal is not equal 11.299f, floatVal)
-    testInvalidNum[Float] (floatVal is not equal 11.3f, "11.3 is equal to 11.3")
+    testValidValue[Float]   (floatVal is not equal 11.299f, floatVal)
+    testInvalidValue[Float] (floatVal is not equal 11.3f, "11.3 is equal to 11.3")
   }
 
   it should "validate double values" in {
-    testValidNum[Double]   (doubleVal is not equal 11.301, doubleVal)
-    testInvalidNum[Double] (doubleVal is not equal 11.3, "11.3 is equal to 11.3")
+    testValidValue[Double]   (doubleVal is not equal 11.301, doubleVal)
+    testInvalidValue[Double] (doubleVal is not equal 11.3, "11.3 is equal to 11.3")
+  }
+
+  "`begins with`" should "validate strings" in {
+    testValidValue[String](stringVal beginsWith "foo", stringVal)
+    testInvalidValue[String](stringVal beginsWith "bar", s"$stringVal doesn't begin with 'bar'")
   }
 }
 
