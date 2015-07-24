@@ -62,18 +62,18 @@ class DSLSpec extends FlatSpec with TryValues {
   }
 
   "`is not` expression" should "validate int values" in {
-    testValidValue[Int]     (intVal is not equal 5, intVal)
-    testInvalidValue[Int]   (intVal is not equal 10, "10 is equal to 10")
+    testValidValue[Int]     (intVal isNot 5, intVal)
+    testInvalidValue[Int]   (intVal isNot 10, "10 is equal to 10")
   }
 
   it should "validate float values" in {
-    testValidValue[Float]   (floatVal is not equal 11.299f, floatVal)
-    testInvalidValue[Float] (floatVal is not equal 11.3f, "11.3 is equal to 11.3")
+    testValidValue[Float]   (floatVal isNot 11.299f, floatVal)
+    testInvalidValue[Float] (floatVal isNot 11.3f, "11.3 is equal to 11.3")
   }
 
   it should "validate double values" in {
-    testValidValue[Double]   (doubleVal is not equal 11.301, doubleVal)
-    testInvalidValue[Double] (doubleVal is not equal 11.3, "11.3 is equal to 11.3")
+    testValidValue[Double]   (doubleVal isNot 11.301, doubleVal)
+    testInvalidValue[Double] (doubleVal isNot 11.3, "11.3 is equal to 11.3")
   }
 
   "`begins with`" should "validate strings" in {

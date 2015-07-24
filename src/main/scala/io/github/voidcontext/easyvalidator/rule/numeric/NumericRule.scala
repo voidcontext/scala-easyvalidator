@@ -5,7 +5,6 @@ import scala.util.{Try ,Failure}
 
 abstract class NumericRule[T](value: T) extends Rule(value) {
   def than(other: T): Try[T] = Failure(new Exception("Invalid usage of rule"))
-  def equal(to: T): Try[T] = Failure(new Exception("Invalid usage of rule"))
 }
 
 case class EqualsNumericRule[T <% Ordered[T]](value: T) extends NumericRule[T](value) {
@@ -13,7 +12,7 @@ case class EqualsNumericRule[T <% Ordered[T]](value: T) extends NumericRule[T](v
 }
 
 case class NotEqualsNumericRule[T <% Ordered[T]](value: T) extends NumericRule[T](value) {
-  override def equal(to: T) = validate(() => value != to, s"$value is equal to $to")
+  def compareTo(to: T) = validate(() => value != to, s"$value is equal to $to")
 }
 
 case class LessThanRule[T <% Ordered[T]](value: T) extends NumericRule[T](value) {
