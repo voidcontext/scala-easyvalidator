@@ -5,7 +5,7 @@ import scala.util.Try
 
 abstract class NumericRuleFactory[T <% Ordered[T]](value: T) extends RuleFactory[T](value) {
 
-  def is(modifier: Modifier): NumericRule[T]  = modifier match {
+  def is(modifier: ThanModifier): ThanableNumericRule[T]  = modifier match {
     case LessThan()    => LessThanRule(value)
     case GreaterThan() => GreaterThanRule(value)
   }

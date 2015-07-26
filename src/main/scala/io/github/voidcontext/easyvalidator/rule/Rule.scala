@@ -6,8 +6,8 @@ trait Modifier
 trait ThanModifier extends Modifier 
 
 case class Negation() extends Modifier
-case class LessThan() extends Modifier
-case class GreaterThan() extends Modifier
+case class LessThan() extends ThanModifier
+case class GreaterThan() extends ThanModifier
 case class LongerThan() extends ThanModifier
 case class ShorterThan() extends ThanModifier
 
