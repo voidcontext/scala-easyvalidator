@@ -10,6 +10,8 @@ package object DSL {
   object not extends Negation
   object less extends LessThan
   object greater extends GreaterThan
+  object shorter extends ShorterThan
+  object longer extends LongerThan
 
   case class IntRuleFactory(value: Int) extends NumericRuleFactory[Int](value: Int)
   case class FloatRuleFactory(value: Float) extends NumericRuleFactory[Float](value: Float)

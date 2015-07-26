@@ -76,9 +76,14 @@ class DSLSpec extends FlatSpec with TryValues {
     testInvalidValue[Double] (doubleVal isNot 11.3, "11.3 is equal to 11.3")
   }
 
-  "`begins with`" should "validate strings" in {
-    testValidValue[String](stringVal beginsWith "foo", stringVal)
-    testInvalidValue[String](stringVal beginsWith "bar", s"$stringVal doesn't begin with 'bar'")
+  "`is shorter than`" should "validate strings" in {
+    testValidValue[String](stringVal is longer than 3, stringVal)
+    testInvalidValue[String](stringVal is longer than 7, s"$stringVal's length is not greater than 7")
+  }
+
+  "`is longer than`" should "validate strings" in {
+    testValidValue[String](stringVal is shorter than 10, stringVal)
+    testInvalidValue[String](stringVal is shorter than 7, s"$stringVal's length is not less than 7")
   }
 }
 
