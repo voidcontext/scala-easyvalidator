@@ -2,6 +2,7 @@ package io.github.voidcontext.easyvalidator.rule
 package string
 
 import scala.util.Try
+import scala.util.matching.Regex
 
 abstract class StringRule(value: String) extends Rule[String](value)
 abstract class ThanableStringRule(value: String) extends StringRule(value) {
@@ -16,3 +17,9 @@ case class LongerThanRule(value: String) extends ThanableStringRule(value) {
   def than(expectedLength: Int) = validate(() => value.length > expectedLength, s"$value's length is not greater than $expectedLength")
 }
 
+case class MatchesRules(value: String) extends StringRule(value) {
+  def test(regex: Regex) = {
+    val regexStr = regex.regex
+      validate(() => value.matches(regexStr), s"$value doesn't match $regexStr")
+  }
+}

@@ -85,5 +85,10 @@ class DSLSpec extends FlatSpec with TryValues {
     testValidValue[String](stringVal is shorter than 10, stringVal)
     testInvalidValue[String](stringVal is shorter than 7, s"$stringVal's length is not less than 7")
   }
+
+  "`matches`" should "validate strings" in {
+    testValidValue[String](stringVal matches """foo.*""".r, stringVal)
+    testInvalidValue[String](stringVal matches """bar.*""".r, s"$stringVal doesn't match bar.*")
+  }
 }
 
