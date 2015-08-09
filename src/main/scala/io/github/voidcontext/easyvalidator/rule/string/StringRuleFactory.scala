@@ -9,5 +9,5 @@ case class StringRuleFactory(value: String) extends RuleFactory[String](value) {
     case LongerThan() => LongerThanRule(value)
   }
 
-  def matches(regex: Regex) = MatchesRules(value).test(regex)
+  def matchesRegex(regex: String) = MatchesRules(value).test(regex)
 }

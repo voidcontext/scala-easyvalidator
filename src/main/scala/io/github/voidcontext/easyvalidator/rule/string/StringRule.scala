@@ -18,8 +18,7 @@ case class LongerThanRule(value: String) extends ThanableStringRule(value) {
 }
 
 case class MatchesRules(value: String) extends StringRule(value) {
-  def test(regex: Regex) = {
-    val regexStr = regex.regex
-      validate(() => value.matches(regexStr), s"$value doesn't match $regexStr")
+  def test(regex: String) = {
+    validate(() => value.matches(regex), s"$value doesn't match $regex")
   }
 }

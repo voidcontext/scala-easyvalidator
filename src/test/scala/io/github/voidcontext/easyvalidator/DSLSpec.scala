@@ -87,8 +87,8 @@ class DSLSpec extends FlatSpec with TryValues {
   }
 
   "`matches`" should "validate strings" in {
-    testValidValue[String](stringVal matches """foo.*""".r, stringVal)
-    testInvalidValue[String](stringVal matches """bar.*""".r, s"$stringVal doesn't match bar.*")
+    testValidValue[String](stringVal matchesRegex """foo.*""", stringVal)
+    testInvalidValue[String](stringVal matchesRegex """bar.*""", s"$stringVal doesn't match bar.*")
   }
 }
 
