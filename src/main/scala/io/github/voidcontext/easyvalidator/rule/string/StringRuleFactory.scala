@@ -2,12 +2,12 @@ package io.github.voidcontext.easyvalidator.rule
 package string
 
 case class StringRuleFactory(value: String) extends RuleFactory[String](value) {
-  def is(modifier: ThanModifier): ThanableStringRule = modifier match {
+  def is(predicate: ThanPredicate): ThanableStringRule = predicate match {
     case ShorterThan() => ShorterThanRule(value)
     case LongerThan() => LongerThanRule(value)
   }
 
-  def isNot(modifier: Modifier) = modifier match {
+  def isNot(predicate: Predicate) = predicate match {
     case Empty() => NotEmptyRule(value).test()
   }
 

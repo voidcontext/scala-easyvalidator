@@ -2,15 +2,15 @@ package io.github.voidcontext.easyvalidator.rule
 
 import scala.util.{Failure, Success, Try}
 
-trait Modifier
-trait ThanModifier extends Modifier 
+trait Predicate
+trait ThanPredicate extends Predicate
 
-case class Negation() extends Modifier
-case class LessThan() extends ThanModifier
-case class GreaterThan() extends ThanModifier
-case class LongerThan() extends ThanModifier
-case class ShorterThan() extends ThanModifier
-case class Empty() extends Modifier
+case class Negation() extends Predicate
+case class LessThan() extends ThanPredicate
+case class GreaterThan() extends ThanPredicate
+case class LongerThan() extends ThanPredicate
+case class ShorterThan() extends ThanPredicate
+case class Empty() extends Predicate
 
 
 abstract class Rule[T](value: T) {
