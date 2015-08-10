@@ -22,3 +22,9 @@ case class MatchesRules(value: String) extends StringRule(value) {
     validate(() => value.matches(regex), s"$value doesn't match $regex")
   }
 }
+
+case class NotEmptyRule(value: String) extends StringRule(value) {
+  def test() = {
+    validate(() => !("[^\\s]".r findFirstIn value).isEmpty, "String is empty")
+  }
+}

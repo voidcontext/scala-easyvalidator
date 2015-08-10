@@ -10,7 +10,7 @@ object EasyValidatorBuild extends Build {
     settings = Defaults.defaultSettings ++ Seq(
       name := "easyvalidator",
       organization := "io.github.voidcontext",
-      version := "0.1.0",
+      version := "0.1.0-SNAPSHOT",
       scalaVersion := "2.11.0",
       crossScalaVersions := Seq("2.10.0", "2.11.0"),
       scalacOptions := Seq("-feature", "-deprecation"),

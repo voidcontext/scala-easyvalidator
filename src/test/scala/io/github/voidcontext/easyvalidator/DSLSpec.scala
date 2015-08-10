@@ -90,5 +90,10 @@ class DSLSpec extends FlatSpec with TryValues {
     testValidValue[String](stringVal matchesRegex """foo.*""", stringVal)
     testInvalidValue[String](stringVal matchesRegex """bar.*""", s"$stringVal doesn't match bar.*")
   }
+
+  "`isNot empty`" should "validate strings" in {
+    testValidValue[String](stringVal isNot empty, stringVal)
+    testInvalidValue[String]("" isNot empty, s"String is empty")
+  }
 }
 

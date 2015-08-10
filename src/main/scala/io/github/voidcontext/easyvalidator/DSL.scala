@@ -12,6 +12,7 @@ package object DSL {
   object greater extends GreaterThan
   object shorter extends ShorterThan
   object longer extends LongerThan
+  object empty extends Empty
 
   case class IntRuleFactory(value: Int) extends NumericRuleFactory[Int](value: Int)
   case class FloatRuleFactory(value: Float) extends NumericRuleFactory[Float](value: Float)

@@ -10,6 +10,7 @@ case class LessThan() extends ThanModifier
 case class GreaterThan() extends ThanModifier
 case class LongerThan() extends ThanModifier
 case class ShorterThan() extends ThanModifier
+case class Empty() extends Modifier
 
 
 abstract class Rule[T](value: T) {
